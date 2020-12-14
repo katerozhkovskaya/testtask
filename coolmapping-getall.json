@@ -1,0 +1,165 @@
+ 
+{
+  "mappings": [
+    {
+      "request": {
+        "url": "/getall",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "list": [
+            {
+              "id": "00001",
+              "type": "2",
+              "amount": 100.0
+            },
+            {
+              "id": "00002",
+              "type": "4",
+              "amount": 200.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/modify/00001",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "matches": "(.*&|^)amount=100($|&.*)"
+          }
+        ],
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "result": "ok"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/getone/00001",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00001",
+          "type": "2",
+          "amount": 100.0
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/delete/00001",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "result": "ok"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/modify/00001",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "doesNotMatch": "(.*&|^)amount=100($|&.*)"
+          }
+        ],
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "result": "error"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/create",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "matches": "(.*&|^)type=([1-4])($|&.*)"
+          },
+          {
+            "matches": "(.*&|^)amount=100($|&.*)"
+          }
+        ],
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00001"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/create",
+        "headers": {
+          "client": {
+            "equalTo": "001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "doesNotMatch": "(.*&|^)type=([1-4])($|&.*)"
+          },
+          {
+            "matches": "(.*&|^)amount=100($|&.*)"
+          }
+        ],
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "result": "error"
+        }
+      }
+    }
+  ]
+}
+
+ 
